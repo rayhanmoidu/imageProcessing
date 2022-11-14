@@ -6,22 +6,34 @@
 #define GLEW_STATIC
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
+#include <utility>
 
 using namespace std;
 
-ImageIsosurface::ImageIsosurface(int width, int height, float renderThreshold, float grayThreshold, Image img) {
+Point ImageIsosurface::mapCoordinatesToScreen(Point p, float widthRatio, float heightRatio) {
+    float newX = p.getX() * (widthRatio);
+    float newY = p.getY() * (heightRatio);
+    return Point(newX, newY);
+}
+
+ImageIsosurface::ImageIsosurface(int width, int height, int rawWidth, int rawHeight, float renderThreshold, float grayThresholdLower, float grayThresholdUpper, Image img) {
     screenWidth = width;
     screenHeight = height;
     renderingThreshold = renderThreshold;
-    grayscaleThreshold = grayThreshold;
+    grayscaleThresholdLower = grayThresholdLower;
+    grayscaleThresholdUpper = grayThresholdUpper;
+    
+    cout <<"hi" << width << " " << height << endl;
     
     cv::Mat imageObject = img.getImage();
     for(int i = 0; i < imageObject.rows; i++) {
         for(int j = 0; j < imageObject.cols; j++) {
             int pixelValue = (int)imageObject.at<uchar>(i, j);
-//            if (pixelValue < 100) {
-            if (pixelValue > 10 && pixelValue < 60) {
-                imageDataPoints.push_back(Point(j, imageObject.rows - i));
+            if (pixelValue > grayThresholdLower && pixelValue < grayThresholdUpper) {
+                Point newPoint = mapCoordinatesToScreen(Point(j, imageObject.rows - i), (float(rawWidth) / float(imageObject.cols)), (float(rawHeight) / float(imageObject.rows)));
+//                cout << newPoint.getX() <<" " << newPoint.getY() << endl;
+                imageDataPoints.push_back(newPoint);
+//                imageDataPointsSet.insert(pair<float, float>(j, imageObject.rows - i));
             }
         }
     }
@@ -38,6 +50,83 @@ float ImageIsosurface::signedDistanceFunction(Point p) {
     return smallestDistance;
 }
 
+//float ImageIsosurface::signedDistanceFunction(Point p) {
+//    float curX = p.getX();
+//    float curY = p.getY();
+//    cout << p.getX() << " " << p.getY() << endl;
+//    float offset = 0;
+//    float distance = INT_MAX;
+//    while (1) {
+//        bool didFind = false;
+//        float count = -offset;
+//        while (count <= offset) {
+////        for (int count = -offset; count <= offset; count +=0.5) {
+//            Point testPoint1(curX + count, curY + offset);
+//            Point testPoint2(curX + count, curY - offset);
+//            cout <<testPoint1.getX() << " " << testPoint1.getY()<<endl;
+//            cout <<testPoint2.getX() << " " << testPoint2.getY()<<endl;
+//
+//
+//            if (imageDataPointsSet.count(pair<float, float>(testPoint1.getX(), testPoint1.getY()))) {
+//                cout <<"found "<< endl;
+//                cout <<testPoint1.getX() << " " << testPoint1.getY()<<endl;
+//
+//                didFind = true;
+//                if (distanceBetweenPoints(testPoint1, p) < distance) {
+//                    distance = distanceBetweenPoints(testPoint1, p);
+//                }
+//            }
+//
+//            if (imageDataPointsSet.count(pair<float, float>(testPoint2.getX(), testPoint2.getY()))) {
+//                cout <<"found "<< endl;
+//                cout <<testPoint2.getX() << " " << testPoint2.getY()<<endl;
+//
+//                didFind = true;
+//                if (distanceBetweenPoints(testPoint2, p) < distance) {
+//                    distance = distanceBetweenPoints(testPoint2, p);
+//                }
+//            }
+//            count +=0.5;
+//        }
+//
+////        for (int count = -offset+1; count <=offset-1; count +=0.5) {
+//        count = -offset;
+//        while (count <= offset) {
+//            Point testPoint1(curX + offset, curY + count);
+//            Point testPoint2(curX - offset, curY + count);
+//            cout <<testPoint1.getX() << " " << testPoint1.getY()<<endl;
+//            cout <<testPoint2.getX() << " " << testPoint2.getY()<<endl;
+//
+//
+//            if (imageDataPointsSet.count(pair<float, float>(testPoint1.getX(), testPoint1.getY()))) {
+//                cout <<"found "<< endl;
+//                cout <<testPoint1.getX() << " " << testPoint1.getY()<<endl;
+//
+//                didFind = true;
+//                if (distanceBetweenPoints(testPoint1, p) < distance) {
+//                    distance = distanceBetweenPoints(testPoint1, p);
+//                }
+//            }
+//
+//            if (imageDataPointsSet.count(pair<float, float>(testPoint2.getX(), testPoint2.getY()))) {
+//                cout <<"found "<< endl;
+//                cout <<testPoint2.getX() << " " << testPoint2.getY()<<endl;
+//                didFind = true;
+//                if (distanceBetweenPoints(testPoint2, p) < distance) {
+//                    distance = distanceBetweenPoints(testPoint2, p);
+//                }
+//            }
+//            count +=0.5;
+//        }
+//
+//        if (didFind) break;
+////        if (curX + offset > screenWidth && curX - offset < 0 && curY + offset > screenHeight && curY - offset < 0) break;
+//        offset +=0.5;
+//    }
+//    if (distance==INT_MAX) cout <<"ERROR ERROR"<<endl;
+//    return distance;
+//}
+
 float ImageIsosurface::distanceBetweenPoints(Point p1, Point p2) {
     float dx = p1.getX() - p2.getX();
     float dy = p1.getY() - p2.getY();
@@ -52,10 +141,10 @@ void ImageIsosurface::render() {
         int x = imageDataPoints[i].getX();
         int y = imageDataPoints[i].getY();
 
-        glVertex2f(x-2, y-2);
-        glVertex2f(x+2, y-2);
-        glVertex2f(x+2, y+2);
-        glVertex2f(x-2, y+2);
+        glVertex2f(x-1, y-1);
+        glVertex2f(x+1, y-1);
+        glVertex2f(x+1, y+1);
+        glVertex2f(x-1, y+1);
         glEnd();
     }
 }

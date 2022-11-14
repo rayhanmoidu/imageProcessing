@@ -17,7 +17,9 @@ using namespace std;
 
 const string imagePath = "/Users/rayhanmoidu/Documents/jaleel_test.JPG";
 const float imageRenderingThreshold = 0.2;
-const float grayscaleThreshold = 1;
+const float grayscaleThresholdLower = 5;
+const float grayscaleThresholdUpper = 40;
+const int smallestQuadtreeCellSize = 400;
 
 int main() {
     glfwInit();
@@ -26,10 +28,22 @@ int main() {
     Image image = Image(imagePath);
     cv::Mat imageObject = image.getImage();
     
-    cv::imshow("hi", imageObject);
+//    cv::imshow("hi", imageObject);
     
-    int imgRawWidth = ( imageObject.cols / 2 );
-    int imgRawHeight = ( imageObject.rows / 2 );
+    int imgRawWidth, imgRawHeight;
+    if (imageObject.cols > 2400 || imageObject.rows > 1600) {
+        float divisorCandidate1 = ( imageObject.cols / 2400 );
+        float divisorCandidate2 = ( imageObject.rows / 1600 );
+        
+        float divisor = max(divisorCandidate1, divisorCandidate2);
+        
+        imgRawWidth = ( imageObject.cols / divisor );
+        imgRawHeight = ( imageObject.rows / divisor );
+    } else {
+        imgRawWidth = ( imageObject.cols / 2 );
+        imgRawHeight = ( imageObject.rows / 2 );
+    }
+    cout << imgRawHeight << " " << imgRawWidth << endl;
     int windowDimension = std::max(imgRawWidth, imgRawHeight);
     
     Canvas canvas(windowDimension, windowDimension, windowTitle);
@@ -43,7 +57,7 @@ int main() {
         return -1;
     }
     
-    ImageIsosurface isosurface(canvas.getWidth(), canvas.getHeight(), imageRenderingThreshold, grayscaleThreshold, image);
+    ImageIsosurface isosurface(canvas.getWidth(), canvas.getHeight(), imgRawWidth, imgRawHeight, imageRenderingThreshold, grayscaleThresholdLower, grayscaleThresholdUpper, image);
     
     std::vector<std::pair<float, float>> vertices;
     
@@ -63,7 +77,7 @@ int main() {
         return -1;
     }
     
-    Quadtree quadtree(canvas.getWidth(), canvas.getHeight(), 20, isosurface);
+    Quadtree quadtree(canvas.getWidth(), canvas.getHeight(), smallestQuadtreeCellSize, isosurface);
 
         
     while (!glfwWindowShouldClose(window)) {
@@ -72,6 +86,7 @@ int main() {
         
         isosurface.render();
         quadtree.render();
+//        cout << "rendered" << endl;
 
         glfwSwapBuffers(window);
     }
