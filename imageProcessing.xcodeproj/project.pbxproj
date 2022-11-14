@@ -44,6 +44,12 @@
 		A36821E3292069C600049BF7 /* libopencv_xfeatures2d.4.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A36821D2292069C600049BF7 /* libopencv_xfeatures2d.4.6.0.dylib */; };
 		A36821E4292069C600049BF7 /* libopencv_quality.4.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A36821D3292069C600049BF7 /* libopencv_quality.4.6.0.dylib */; };
 		A36821E5292069C600049BF7 /* libopencv_imgproc.4.6.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A36821D4292069C600049BF7 /* libopencv_imgproc.4.6.0.dylib */; };
+		A36821E82921CDB500049BF7 /* Image.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821E62921CDB500049BF7 /* Image.cpp */; };
+		A36821EB2921D5C800049BF7 /* Canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821E92921D5C800049BF7 /* Canvas.cpp */; };
+		A36821EE2921D9B700049BF7 /* Isosurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821EC2921D9B700049BF7 /* Isosurface.cpp */; };
+		A36821F12921D9D000049BF7 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821EF2921D9D000049BF7 /* Point.cpp */; };
+		A36821F42921DA0600049BF7 /* ImageIsosurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821F22921DA0600049BF7 /* ImageIsosurface.cpp */; };
+		A36821F72921E06200049BF7 /* Quadtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821F52921E06200049BF7 /* Quadtree.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -97,6 +103,18 @@
 		A36821D2292069C600049BF7 /* libopencv_xfeatures2d.4.6.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_xfeatures2d.4.6.0.dylib; path = ../../../../../opt/homebrew/Cellar/opencv/4.6.0_1/lib/libopencv_xfeatures2d.4.6.0.dylib; sourceTree = "<group>"; };
 		A36821D3292069C600049BF7 /* libopencv_quality.4.6.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_quality.4.6.0.dylib; path = ../../../../../opt/homebrew/Cellar/opencv/4.6.0_1/lib/libopencv_quality.4.6.0.dylib; sourceTree = "<group>"; };
 		A36821D4292069C600049BF7 /* libopencv_imgproc.4.6.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.4.6.0.dylib; path = ../../../../../opt/homebrew/Cellar/opencv/4.6.0_1/lib/libopencv_imgproc.4.6.0.dylib; sourceTree = "<group>"; };
+		A36821E62921CDB500049BF7 /* Image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Image.cpp; sourceTree = "<group>"; };
+		A36821E72921CDB500049BF7 /* Image.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Image.hpp; sourceTree = "<group>"; };
+		A36821E92921D5C800049BF7 /* Canvas.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Canvas.cpp; sourceTree = "<group>"; };
+		A36821EA2921D5C800049BF7 /* Canvas.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Canvas.hpp; sourceTree = "<group>"; };
+		A36821EC2921D9B700049BF7 /* Isosurface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Isosurface.cpp; sourceTree = "<group>"; };
+		A36821ED2921D9B700049BF7 /* Isosurface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Isosurface.hpp; sourceTree = "<group>"; };
+		A36821EF2921D9D000049BF7 /* Point.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Point.cpp; sourceTree = "<group>"; };
+		A36821F02921D9D000049BF7 /* Point.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Point.hpp; sourceTree = "<group>"; };
+		A36821F22921DA0600049BF7 /* ImageIsosurface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = ImageIsosurface.cpp; sourceTree = "<group>"; };
+		A36821F32921DA0600049BF7 /* ImageIsosurface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImageIsosurface.hpp; sourceTree = "<group>"; };
+		A36821F52921E06200049BF7 /* Quadtree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Quadtree.cpp; sourceTree = "<group>"; };
+		A36821F62921E06200049BF7 /* Quadtree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Quadtree.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +185,18 @@
 			isa = PBXGroup;
 			children = (
 				A36821962920499900049BF7 /* main.cpp */,
+				A36821EC2921D9B700049BF7 /* Isosurface.cpp */,
+				A36821ED2921D9B700049BF7 /* Isosurface.hpp */,
+				A36821F22921DA0600049BF7 /* ImageIsosurface.cpp */,
+				A36821F32921DA0600049BF7 /* ImageIsosurface.hpp */,
+				A36821F52921E06200049BF7 /* Quadtree.cpp */,
+				A36821F62921E06200049BF7 /* Quadtree.hpp */,
+				A36821EF2921D9D000049BF7 /* Point.cpp */,
+				A36821F02921D9D000049BF7 /* Point.hpp */,
+				A36821E92921D5C800049BF7 /* Canvas.cpp */,
+				A36821EA2921D5C800049BF7 /* Canvas.hpp */,
+				A36821E62921CDB500049BF7 /* Image.cpp */,
+				A36821E72921CDB500049BF7 /* Image.hpp */,
 			);
 			path = imageProcessing;
 			sourceTree = "<group>";
@@ -272,6 +302,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				A36821972920499900049BF7 /* main.cpp in Sources */,
+				A36821E82921CDB500049BF7 /* Image.cpp in Sources */,
+				A36821F12921D9D000049BF7 /* Point.cpp in Sources */,
+				A36821EB2921D5C800049BF7 /* Canvas.cpp in Sources */,
+				A36821F72921E06200049BF7 /* Quadtree.cpp in Sources */,
+				A36821EE2921D9B700049BF7 /* Isosurface.cpp in Sources */,
+				A36821F42921DA0600049BF7 /* ImageIsosurface.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,55 +7,45 @@
 
 #include <opencv2/imgcodecs.hpp>
 #include <opencv2/highgui.hpp>
+#include "Image.hpp"
+#include "Canvas.hpp"
+#include <string>
+#include "ImageIsosurface.hpp"
+#include "Quadtree.hpp"
 
-using namespace cv;
+using namespace std;
 
-const GLint WIDTH = 1000, HEIGHT = 500;
+const string imagePath = "/Users/rayhanmoidu/Documents/jaleel_test.JPG";
+const float imageRenderingThreshold = 0.2;
+const float grayscaleThreshold = 1;
 
 int main() {
     glfwInit();
-    char* windowTitle = "Isosurface Stuffing";
-//    GLFWwindow *window = glfwCreateWindow(WIDTH, HEIGHT, windowTitle, nullptr, nullptr);
+    char* windowTitle = "Image Processing";
+    
+    Image image = Image(imagePath);
+    cv::Mat imageObject = image.getImage();
+    
+    cv::imshow("hi", imageObject);
+    
+    int imgRawWidth = ( imageObject.cols / 2 );
+    int imgRawHeight = ( imageObject.rows / 2 );
+    int windowDimension = std::max(imgRawWidth, imgRawHeight);
+    
+    Canvas canvas(windowDimension, windowDimension, windowTitle);
+    GLFWwindow *window = canvas.getWindow();
     
     
-    cv::Mat img = imread("/Users/rayhanmoidu/Documents/starry_night.png", IMREAD_GRAYSCALE);
-    cv::Mat grayImg;
-    
-    cv::imshow("hi", img);
-    
-    GLFWwindow *window = glfwCreateWindow(img.cols/2, img.rows/2, windowTitle, nullptr, nullptr);
-
-    
-    
-    
-    
-//    cvtColor(img, grayImg, CV_BGR2GRAY);
-    
-    std::cout << img.rows <<" " << img.cols << std::endl;
-    
-//    imshow("before", img);
-    
-    std::vector<std::pair<int, int>> vertices;
-    
-    for(int i = 0; i < img.rows; i++)
-    {
-        for(int j = 0; j < img.cols; j++)
-        {
-            int pixelValue = (int)img.at<uchar>(j,i);
-            if (pixelValue > 170) {
-                vertices.push_back(std::pair<int, int>(j, i));
-            }
-            
-
-            // do something with BGR values...
-        }
+    if (window == nullptr) {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+        
+        return -1;
     }
     
+    ImageIsosurface isosurface(canvas.getWidth(), canvas.getHeight(), imageRenderingThreshold, grayscaleThreshold, image);
     
-    int width;
-    int height;
-    glfwGetFramebufferSize(window, &width, &height);
-    
+    std::vector<std::pair<float, float>> vertices;
     
     if (window == nullptr) {
         std::cout << "Failed to create GLFW window" << std::endl;
@@ -72,47 +62,16 @@ int main() {
         
         return -1;
     }
+    
+    Quadtree quadtree(canvas.getWidth(), canvas.getHeight(), 20, isosurface);
 
         
     while (!glfwWindowShouldClose(window)) {
-                
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-        glLoadIdentity();
-
-        glViewport(0, 0, width, height);
-        glMatrixMode(GL_PROJECTION);
-        glLoadIdentity();
         
-        glOrtho(0.0f, width, 0.0f, height, 0.0f, 1.0f);
-        glMatrixMode (GL_MODELVIEW);
-        glLoadIdentity();
+        canvas.initCanvas();
         
-        glfwPollEvents();
-        
-        glColor3f(0.5f, 0.5f, 0.5f);
-        
-        for (int i = 0; i < vertices.size(); i++) {
-            glBegin(GL_QUADS);
-            
-            int x = vertices[i].first;
-            int y = vertices[i].second;
-
-            glVertex2f(x-2, y-2);
-            glVertex2f(x+2, y-2);
-            glVertex2f(x+2, y+2);
-            glVertex2f(x-2, y+2);
-            glEnd();
-        }
-        
-//        glBegin(GL_QUADS);
-//
-//        glVertex2f(100, 100);
-//        glVertex2f(200, 100);
-//        glVertex2f(200, 200);
-//        glVertex2f(100, 200);
-//        glEnd();
-
-
+        isosurface.render();
+        quadtree.render();
 
         glfwSwapBuffers(window);
     }
