@@ -19,7 +19,6 @@ isosurface(isosurface) {
 }
 
 void Quadtree::constructChildren(QuadtreeNode *node) {
-    cout << "constructing children " << node->dimension<<endl;
     QuadtreeNode northEastChild(node->centerX + node->dimension/4, node->centerY + node->dimension/4, node->dimension / 2);
     QuadtreeNode northWestChild(node->centerX - node->dimension/4, node->centerY + node->dimension/4, node->dimension / 2);
     QuadtreeNode southEastChild(node->centerX + node->dimension/4, node->centerY - node->dimension/4, node->dimension / 2);

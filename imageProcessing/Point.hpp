@@ -5,7 +5,7 @@
 
 class Point {
 public:
-    Point(float pointX = 0, float pointY = 0);
+    Point(int pointX = 0, int pointY = 0);
     bool operator == (Point &obj);
     
     //getters
@@ -13,8 +13,8 @@ public:
     float getY();
     
     //setters
-    void setX(float);
-    void setY(float);
+    void setX(int);
+    void setY(int);
 
 protected:
     int getCanvasCoordinate(int);

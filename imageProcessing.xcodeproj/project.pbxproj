@@ -50,6 +50,10 @@
 		A36821F12921D9D000049BF7 /* Point.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821EF2921D9D000049BF7 /* Point.cpp */; };
 		A36821F42921DA0600049BF7 /* ImageIsosurface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821F22921DA0600049BF7 /* ImageIsosurface.cpp */; };
 		A36821F72921E06200049BF7 /* Quadtree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821F52921E06200049BF7 /* Quadtree.cpp */; };
+		A36821FA2922CB1D00049BF7 /* Tiling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821F82922CB1D00049BF7 /* Tiling.cpp */; };
+		A36821FD2922CB4800049BF7 /* QuadtreeTiling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821FB2922CB4800049BF7 /* QuadtreeTiling.cpp */; };
+		A36822002922CB7F00049BF7 /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821FE2922CB7F00049BF7 /* Triangle.cpp */; };
+		A36822032922CB9E00049BF7 /* Cutpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36822012922CB9E00049BF7 /* Cutpoint.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -115,6 +119,14 @@
 		A36821F32921DA0600049BF7 /* ImageIsosurface.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = ImageIsosurface.hpp; sourceTree = "<group>"; };
 		A36821F52921E06200049BF7 /* Quadtree.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Quadtree.cpp; sourceTree = "<group>"; };
 		A36821F62921E06200049BF7 /* Quadtree.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Quadtree.hpp; sourceTree = "<group>"; };
+		A36821F82922CB1D00049BF7 /* Tiling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Tiling.cpp; sourceTree = "<group>"; };
+		A36821F92922CB1D00049BF7 /* Tiling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Tiling.hpp; sourceTree = "<group>"; };
+		A36821FB2922CB4800049BF7 /* QuadtreeTiling.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = QuadtreeTiling.cpp; sourceTree = "<group>"; };
+		A36821FC2922CB4800049BF7 /* QuadtreeTiling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QuadtreeTiling.hpp; sourceTree = "<group>"; };
+		A36821FE2922CB7F00049BF7 /* Triangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Triangle.cpp; sourceTree = "<group>"; };
+		A36821FF2922CB7F00049BF7 /* Triangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
+		A36822012922CB9E00049BF7 /* Cutpoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cutpoint.cpp; sourceTree = "<group>"; };
+		A36822022922CB9E00049BF7 /* Cutpoint.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cutpoint.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -197,6 +209,14 @@
 				A36821EA2921D5C800049BF7 /* Canvas.hpp */,
 				A36821E62921CDB500049BF7 /* Image.cpp */,
 				A36821E72921CDB500049BF7 /* Image.hpp */,
+				A36821F82922CB1D00049BF7 /* Tiling.cpp */,
+				A36821FB2922CB4800049BF7 /* QuadtreeTiling.cpp */,
+				A36821FC2922CB4800049BF7 /* QuadtreeTiling.hpp */,
+				A36821F92922CB1D00049BF7 /* Tiling.hpp */,
+				A36821FE2922CB7F00049BF7 /* Triangle.cpp */,
+				A36821FF2922CB7F00049BF7 /* Triangle.hpp */,
+				A36822012922CB9E00049BF7 /* Cutpoint.cpp */,
+				A36822022922CB9E00049BF7 /* Cutpoint.hpp */,
 			);
 			path = imageProcessing;
 			sourceTree = "<group>";
@@ -303,7 +323,11 @@
 			files = (
 				A36821972920499900049BF7 /* main.cpp in Sources */,
 				A36821E82921CDB500049BF7 /* Image.cpp in Sources */,
+				A36822032922CB9E00049BF7 /* Cutpoint.cpp in Sources */,
+				A36821FA2922CB1D00049BF7 /* Tiling.cpp in Sources */,
+				A36822002922CB7F00049BF7 /* Triangle.cpp in Sources */,
 				A36821F12921D9D000049BF7 /* Point.cpp in Sources */,
+				A36821FD2922CB4800049BF7 /* QuadtreeTiling.cpp in Sources */,
 				A36821EB2921D5C800049BF7 /* Canvas.cpp in Sources */,
 				A36821F72921E06200049BF7 /* Quadtree.cpp in Sources */,
 				A36821EE2921D9B700049BF7 /* Isosurface.cpp in Sources */,

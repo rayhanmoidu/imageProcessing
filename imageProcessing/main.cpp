@@ -12,14 +12,15 @@
 #include <string>
 #include "ImageIsosurface.hpp"
 #include "Quadtree.hpp"
+#include "QuadtreeTiling.hpp"
 
 using namespace std;
 
-const string imagePath = "/Users/rayhanmoidu/Documents/jaleel_test.JPG";
+const string imagePath = "/Users/rayhanmoidu/Documents/starry_night.PNG";
 const float imageRenderingThreshold = 0.2;
 const float grayscaleThresholdLower = 5;
-const float grayscaleThresholdUpper = 40;
-const int smallestQuadtreeCellSize = 400;
+const float grayscaleThresholdUpper = 100;
+const int smallestQuadtreeCellSize = 1;
 
 int main() {
     glfwInit();
@@ -27,9 +28,7 @@ int main() {
     
     Image image = Image(imagePath);
     cv::Mat imageObject = image.getImage();
-    
-//    cv::imshow("hi", imageObject);
-    
+        
     int imgRawWidth, imgRawHeight;
     if (imageObject.cols > 2400 || imageObject.rows > 1600) {
         float divisorCandidate1 = ( imageObject.cols / 2400 );
@@ -43,7 +42,6 @@ int main() {
         imgRawWidth = ( imageObject.cols / 2 );
         imgRawHeight = ( imageObject.rows / 2 );
     }
-    cout << imgRawHeight << " " << imgRawWidth << endl;
     int windowDimension = std::max(imgRawWidth, imgRawHeight);
     
     Canvas canvas(windowDimension, windowDimension, windowTitle);
@@ -78,15 +76,13 @@ int main() {
     }
     
     Quadtree quadtree(canvas.getWidth(), canvas.getHeight(), smallestQuadtreeCellSize, isosurface);
-
+    QuadtreeTiling quadtreeTiling(quadtree, isoscelesSingle);
         
     while (!glfwWindowShouldClose(window)) {
         
         canvas.initCanvas();
-        
-        isosurface.render();
         quadtree.render();
-//        cout << "rendered" << endl;
+//        quadtreeTiling.render();
 
         glfwSwapBuffers(window);
     }

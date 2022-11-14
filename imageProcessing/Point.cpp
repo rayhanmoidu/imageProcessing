@@ -1,6 +1,6 @@
 #include "Point.hpp"
 
-Point::Point(float pointX, float pointY) {
+Point::Point(int pointX, int pointY) {
     x = pointX;
     y = pointY;
 }
@@ -13,11 +13,11 @@ float Point::getY() {
     return y;
 }
 
-void Point::setX(float xVal) {
+void Point::setX(int xVal) {
     x = xVal;
 }
 
-void Point::setY(float yVal) {
+void Point::setY(int yVal) {
     y = yVal;
 }
 

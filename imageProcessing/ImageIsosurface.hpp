@@ -42,8 +42,8 @@ private:
     Point mapCoordinatesToScreen(Point, float, float);
     
     std::vector<Point> imageDataPoints;
-//    std::unordered_set<std::pair<float, float>, pair_hash> imageDataPointsSet;
-    std::set<float> imadeDataPointsSetX;
+    std::unordered_set<std::pair<float, float>, pair_hash> imageDataPointsSet;
+//    std::set<float> imadeDataPointsSetX;
     
     float grayscaleThresholdUpper;
     float grayscaleThresholdLower;

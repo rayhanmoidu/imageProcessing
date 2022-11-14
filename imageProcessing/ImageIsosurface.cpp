@@ -33,13 +33,13 @@ ImageIsosurface::ImageIsosurface(int width, int height, int rawWidth, int rawHei
                 Point newPoint = mapCoordinatesToScreen(Point(j, imageObject.rows - i), (float(rawWidth) / float(imageObject.cols)), (float(rawHeight) / float(imageObject.rows)));
 //                cout << newPoint.getX() <<" " << newPoint.getY() << endl;
                 imageDataPoints.push_back(newPoint);
-//                imageDataPointsSet.insert(pair<float, float>(j, imageObject.rows - i));
+                imageDataPointsSet.insert(pair<float, float>(newPoint.getX(), newPoint.getY()));
             }
         }
     }
 }
 
-float ImageIsosurface::signedDistanceFunction(Point p) {
+float ImageIsosurface::signedDistanceFunctionOptimized(Point p) {
     float smallestDistance = INT_MAX;
     for (int i = 0; i < imageDataPoints.size(); i++) {
         float curDistance = distanceBetweenPoints(imageDataPoints[i], p);
@@ -50,82 +50,62 @@ float ImageIsosurface::signedDistanceFunction(Point p) {
     return smallestDistance;
 }
 
-//float ImageIsosurface::signedDistanceFunction(Point p) {
-//    float curX = p.getX();
-//    float curY = p.getY();
-//    cout << p.getX() << " " << p.getY() << endl;
-//    float offset = 0;
-//    float distance = INT_MAX;
-//    while (1) {
-//        bool didFind = false;
-//        float count = -offset;
-//        while (count <= offset) {
-////        for (int count = -offset; count <= offset; count +=0.5) {
-//            Point testPoint1(curX + count, curY + offset);
-//            Point testPoint2(curX + count, curY - offset);
-//            cout <<testPoint1.getX() << " " << testPoint1.getY()<<endl;
-//            cout <<testPoint2.getX() << " " << testPoint2.getY()<<endl;
-//
-//
-//            if (imageDataPointsSet.count(pair<float, float>(testPoint1.getX(), testPoint1.getY()))) {
-//                cout <<"found "<< endl;
-//                cout <<testPoint1.getX() << " " << testPoint1.getY()<<endl;
-//
-//                didFind = true;
-//                if (distanceBetweenPoints(testPoint1, p) < distance) {
-//                    distance = distanceBetweenPoints(testPoint1, p);
-//                }
-//            }
-//
-//            if (imageDataPointsSet.count(pair<float, float>(testPoint2.getX(), testPoint2.getY()))) {
-//                cout <<"found "<< endl;
-//                cout <<testPoint2.getX() << " " << testPoint2.getY()<<endl;
-//
-//                didFind = true;
-//                if (distanceBetweenPoints(testPoint2, p) < distance) {
-//                    distance = distanceBetweenPoints(testPoint2, p);
-//                }
-//            }
-//            count +=0.5;
-//        }
-//
-////        for (int count = -offset+1; count <=offset-1; count +=0.5) {
-//        count = -offset;
-//        while (count <= offset) {
-//            Point testPoint1(curX + offset, curY + count);
-//            Point testPoint2(curX - offset, curY + count);
-//            cout <<testPoint1.getX() << " " << testPoint1.getY()<<endl;
-//            cout <<testPoint2.getX() << " " << testPoint2.getY()<<endl;
-//
-//
-//            if (imageDataPointsSet.count(pair<float, float>(testPoint1.getX(), testPoint1.getY()))) {
-//                cout <<"found "<< endl;
-//                cout <<testPoint1.getX() << " " << testPoint1.getY()<<endl;
-//
-//                didFind = true;
-//                if (distanceBetweenPoints(testPoint1, p) < distance) {
-//                    distance = distanceBetweenPoints(testPoint1, p);
-//                }
-//            }
-//
-//            if (imageDataPointsSet.count(pair<float, float>(testPoint2.getX(), testPoint2.getY()))) {
-//                cout <<"found "<< endl;
-//                cout <<testPoint2.getX() << " " << testPoint2.getY()<<endl;
-//                didFind = true;
-//                if (distanceBetweenPoints(testPoint2, p) < distance) {
-//                    distance = distanceBetweenPoints(testPoint2, p);
-//                }
-//            }
-//            count +=0.5;
-//        }
-//
-//        if (didFind) break;
-////        if (curX + offset > screenWidth && curX - offset < 0 && curY + offset > screenHeight && curY - offset < 0) break;
-//        offset +=0.5;
-//    }
-//    if (distance==INT_MAX) cout <<"ERROR ERROR"<<endl;
-//    return distance;
-//}
+float ImageIsosurface::signedDistanceFunction(Point p) {
+    float curX = p.getX();
+    float curY = p.getY();
+    float offset = 0;
+    float distance = INT_MAX;
+    while (1) {
+        bool didFind = false;
+        float count = -offset;
+        while (count <= offset) {
+            Point testPoint1(curX + count, curY + offset);
+            Point testPoint2(curX + count, curY - offset);
+
+            if (imageDataPointsSet.count(pair<float, float>(testPoint1.getX(), testPoint1.getY()))) {
+                didFind = true;
+                if (distanceBetweenPoints(testPoint1, p) < distance) {
+                    distance = distanceBetweenPoints(testPoint1, p);
+                }
+            }
+
+            if (imageDataPointsSet.count(pair<float, float>(testPoint2.getX(), testPoint2.getY()))) {
+                didFind = true;
+                if (distanceBetweenPoints(testPoint2, p) < distance) {
+                    distance = distanceBetweenPoints(testPoint2, p);
+                }
+            }
+            count +=1;
+        }
+
+        count = -offset;
+        while (count <= offset) {
+            Point testPoint1(curX + offset, curY + count);
+            Point testPoint2(curX - offset, curY + count);
+
+            if (imageDataPointsSet.count(pair<float, float>(testPoint1.getX(), testPoint1.getY()))) {
+                didFind = true;
+                if (distanceBetweenPoints(testPoint1, p) < distance) {
+                    distance = distanceBetweenPoints(testPoint1, p);
+                }
+            }
+
+            if (imageDataPointsSet.count(pair<float, float>(testPoint2.getX(), testPoint2.getY()))) {
+                didFind = true;
+                if (distanceBetweenPoints(testPoint2, p) < distance) {
+                    distance = distanceBetweenPoints(testPoint2, p);
+                }
+            }
+            count +=1;
+        }
+
+        if (didFind) break;
+//        if (curX + offset > screenWidth && curX - offset < 0 && curY + offset > screenHeight && curY - offset < 0) break;
+        offset +=1;
+    }
+    if (distance==INT_MAX) cout <<"ERROR ERROR"<<endl;
+    return distance;
+}
 
 float ImageIsosurface::distanceBetweenPoints(Point p1, Point p2) {
     float dx = p1.getX() - p2.getX();
