@@ -15,7 +15,10 @@ isosurface(isosurface) {
     if (shouldRefine(root)) {
         constructChildren(&root);
     }
-//    while (!isBalanced()) balanceQuadtree();
+//    while (!isBalanced()) {
+//        cout<<"Balancing..."<<endl;
+//        balanceQuadtree();
+//    }
 }
 
 void Quadtree::constructChildren(QuadtreeNode *node) {
@@ -189,6 +192,7 @@ vector<QuadtreeNode*> Quadtree::getListOfLeaves() {
 }
 
 vector<QuadtreeNode*> Quadtree::getListOfLeavesHelper(QuadtreeNode* curNode, vector<QuadtreeNode*> leaves) {
+    cout <<"getting list of leaves" << curNode->dimension<<endl;
     if (curNode->children.size()==0) {
         leaves.push_back(curNode);
         return leaves;

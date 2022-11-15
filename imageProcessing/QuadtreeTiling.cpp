@@ -31,7 +31,7 @@ void QuadtreeTiling::createTrianglesFromCell_isoscelesSingle(QuadtreeNode *curNo
     Point BRCorner(curNode->centerX + curNode->dimension / 2, curNode->centerY + curNode->dimension / 2);
     
     Triangle t1(ULCorner, BLCorner, BRCorner, curNode->dimension);
-    Triangle t2(URCorner, BRCorner, ULCorner, curNode->dimension);
+    Triangle t2(URCorner, BRCorner, ULCorner, 1/curNode->dimension);
     
     triangles.push_back(t1);
     triangles.push_back(t2);
@@ -65,10 +65,7 @@ void QuadtreeTiling::createTrianglesFromCell_equilateral(QuadtreeNode *curNode) 
     Point BRCorner((curNode->centerX + curNode->dimension / 2), curNode->centerY + curNode->dimension / 2);
     
     Triangle t1(ULCorner, BLCorner, BRCorner, curNode->dimension);
-    Triangle t2(URCorner, BRCorner, ULCorner, curNode->dimension);
-    
-    vector<float> angles1 = t1.computeAngles();
-    vector<float> angles2 = t2.computeAngles();
+    Triangle t2(URCorner, BRCorner, ULCorner, 1/curNode->dimension);
 
     triangles.push_back(t1);
     triangles.push_back(t2);

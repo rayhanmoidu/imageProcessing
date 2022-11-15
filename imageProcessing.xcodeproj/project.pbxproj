@@ -53,7 +53,6 @@
 		A36821FA2922CB1D00049BF7 /* Tiling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821F82922CB1D00049BF7 /* Tiling.cpp */; };
 		A36821FD2922CB4800049BF7 /* QuadtreeTiling.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821FB2922CB4800049BF7 /* QuadtreeTiling.cpp */; };
 		A36822002922CB7F00049BF7 /* Triangle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36821FE2922CB7F00049BF7 /* Triangle.cpp */; };
-		A36822032922CB9E00049BF7 /* Cutpoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A36822012922CB9E00049BF7 /* Cutpoint.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -125,8 +124,6 @@
 		A36821FC2922CB4800049BF7 /* QuadtreeTiling.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = QuadtreeTiling.hpp; sourceTree = "<group>"; };
 		A36821FE2922CB7F00049BF7 /* Triangle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Triangle.cpp; sourceTree = "<group>"; };
 		A36821FF2922CB7F00049BF7 /* Triangle.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Triangle.hpp; sourceTree = "<group>"; };
-		A36822012922CB9E00049BF7 /* Cutpoint.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Cutpoint.cpp; sourceTree = "<group>"; };
-		A36822022922CB9E00049BF7 /* Cutpoint.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Cutpoint.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,8 +212,6 @@
 				A36821F92922CB1D00049BF7 /* Tiling.hpp */,
 				A36821FE2922CB7F00049BF7 /* Triangle.cpp */,
 				A36821FF2922CB7F00049BF7 /* Triangle.hpp */,
-				A36822012922CB9E00049BF7 /* Cutpoint.cpp */,
-				A36822022922CB9E00049BF7 /* Cutpoint.hpp */,
 			);
 			path = imageProcessing;
 			sourceTree = "<group>";
@@ -323,7 +318,6 @@
 			files = (
 				A36821972920499900049BF7 /* main.cpp in Sources */,
 				A36821E82921CDB500049BF7 /* Image.cpp in Sources */,
-				A36822032922CB9E00049BF7 /* Cutpoint.cpp in Sources */,
 				A36821FA2922CB1D00049BF7 /* Tiling.cpp in Sources */,
 				A36822002922CB7F00049BF7 /* Triangle.cpp in Sources */,
 				A36821F12921D9D000049BF7 /* Point.cpp in Sources */,

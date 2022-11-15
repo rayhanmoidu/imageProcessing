@@ -22,32 +22,17 @@ ImageIsosurface::ImageIsosurface(int width, int height, int rawWidth, int rawHei
     renderingThreshold = renderThreshold;
     grayscaleThresholdLower = grayThresholdLower;
     grayscaleThresholdUpper = grayThresholdUpper;
-    
-    cout <<"hi" << width << " " << height << endl;
-    
+        
     cv::Mat imageObject = img.getImage();
     for(int i = 0; i < imageObject.rows; i++) {
         for(int j = 0; j < imageObject.cols; j++) {
             int pixelValue = (int)imageObject.at<uchar>(i, j);
             if (pixelValue > grayThresholdLower && pixelValue < grayThresholdUpper) {
                 Point newPoint = mapCoordinatesToScreen(Point(j, imageObject.rows - i), (float(rawWidth) / float(imageObject.cols)), (float(rawHeight) / float(imageObject.rows)));
-//                cout << newPoint.getX() <<" " << newPoint.getY() << endl;
-                imageDataPoints.push_back(newPoint);
                 imageDataPointsSet.insert(pair<float, float>(newPoint.getX(), newPoint.getY()));
             }
         }
     }
-}
-
-float ImageIsosurface::signedDistanceFunctionOptimized(Point p) {
-    float smallestDistance = INT_MAX;
-    for (int i = 0; i < imageDataPoints.size(); i++) {
-        float curDistance = distanceBetweenPoints(imageDataPoints[i], p);
-        if (curDistance < smallestDistance) {
-            smallestDistance = curDistance;
-        }
-    }
-    return smallestDistance;
 }
 
 float ImageIsosurface::signedDistanceFunction(Point p) {
@@ -115,11 +100,11 @@ float ImageIsosurface::distanceBetweenPoints(Point p1, Point p2) {
 }
 
 void ImageIsosurface::render() {
-    for (int i = 0; i < imageDataPoints.size(); i++) {
+    for (const auto& imageDataPoint: imageDataPointsSet) {
         glBegin(GL_QUADS);
-
-        int x = imageDataPoints[i].getX();
-        int y = imageDataPoints[i].getY();
+        
+        int x = imageDataPoint.first;
+        int y = imageDataPoint.second;
 
         glVertex2f(x-1, y-1);
         glVertex2f(x+1, y-1);

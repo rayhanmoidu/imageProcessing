@@ -10,16 +10,6 @@
 #include <unordered_set>
 #include <utility>
 #include <set>
-//#include <bits/stdc++.h>
-
-//public int hashCode() {
-//        final int prime = 31;
-//        int result = 1;
-//        result = prime * result + x;
-//        result = prime * result + y;
-//        return result;
-//    }
-//}
 
 struct pair_hash {
     inline std::size_t operator()(const std::pair<float,float> & v) const {
@@ -41,9 +31,7 @@ private:
     float distanceBetweenPoints(Point, Point);
     Point mapCoordinatesToScreen(Point, float, float);
     
-    std::vector<Point> imageDataPoints;
     std::unordered_set<std::pair<float, float>, pair_hash> imageDataPointsSet;
-//    std::set<float> imadeDataPointsSetX;
     
     float grayscaleThresholdUpper;
     float grayscaleThresholdLower;

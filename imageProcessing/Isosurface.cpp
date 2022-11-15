@@ -17,9 +17,7 @@ void Isosurface::render() {
     for (int i = 1; i <= screenWidth; i++) {
         for (int j = 1; j <= screenHeight; j++) {
             float distance = signedDistanceFunction(Point(i, j));
-//            cout << distance << endl;
             if (distance > -renderingThreshold && distance < renderingThreshold) {
-                cout << "rendering" << endl;
                 glBegin(GL_QUADS);
                 glVertex2f(i, j);
                 glVertex2f(i+1, j);

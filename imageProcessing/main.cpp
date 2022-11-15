@@ -18,9 +18,9 @@ using namespace std;
 
 const string imagePath = "/Users/rayhanmoidu/Documents/starry_night.PNG";
 const float imageRenderingThreshold = 0.2;
-const float grayscaleThresholdLower = 5;
-const float grayscaleThresholdUpper = 100;
-const int smallestQuadtreeCellSize = 1;
+const float grayscaleThresholdLower = 60;
+const float grayscaleThresholdUpper = 180;
+const int smallestQuadtreeCellSize = 20;
 
 int main() {
     glfwInit();
@@ -55,6 +55,7 @@ int main() {
         return -1;
     }
     
+    cout <<"Creating Isosurface..."<<endl;
     ImageIsosurface isosurface(canvas.getWidth(), canvas.getHeight(), imgRawWidth, imgRawHeight, imageRenderingThreshold, grayscaleThresholdLower, grayscaleThresholdUpper, image);
     
     std::vector<std::pair<float, float>> vertices;
@@ -74,15 +75,20 @@ int main() {
         
         return -1;
     }
-    
+    cout <<"Creating Quadtree..."<<endl;
+
     Quadtree quadtree(canvas.getWidth(), canvas.getHeight(), smallestQuadtreeCellSize, isosurface);
+    cout <<"Creating Quadtree Tiling..."<<endl;
+
     QuadtreeTiling quadtreeTiling(quadtree, isoscelesSingle);
+    
+    cout <<"Rendering"<<endl;
         
     while (!glfwWindowShouldClose(window)) {
         
         canvas.initCanvas();
-        quadtree.render();
-//        quadtreeTiling.render();
+//        isosurface.render();
+        quadtreeTiling.render();
 
         glfwSwapBuffers(window);
     }
@@ -90,11 +96,3 @@ int main() {
     glfwTerminate();
     return 0;
 }
-
-
-// balanace the quadtree
-// quadtree tiling (introduce diagonals to make it into triangles, can either simply use the diagonal or do it like the paper did it)
-// skew the quadtree to make it into parallelograms that turn into equilateral triangles
-// provably good meshig (probably the most ideal one!)
-
-
